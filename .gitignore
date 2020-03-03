@@ -4,3 +4,9 @@ __pycache__/
 
 # virtualenv files
 venv/
+
+# db
+db.*
+
+# migrations
+migrations/
