@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from projects import views
-from rest_framework import routers
-
-router = routers.DefaultRouter()
-router.register(r'projects', views.ProjectViewSet)
-router.register(r'activities', views.ActivityViewSet)
+from projects.views import (
+    ActivityView,
+    ActivitiesView,
+    ProjectView,
+    ProjectsView,
+)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/projects', ProjectsView.as_view()),
+    path('api/projects/<int:project_id>/activities/<int:id>/finish', ActivityView.as_view()),
+    path('api/projects/<int:project_id>/activities', ActivitiesView.as_view()),
+    path('api/projects/<int:id>', ProjectView.as_view()),   
     path('admin/', admin.site.urls),
 ]
