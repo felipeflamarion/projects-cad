@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Project {{ project.name }} {% endblock %}
+
+{% block body %}
+<a href="/api/projects" class="ui labeled icon button">
+    <i class="left arrow icon"></i>
+    Projetos
+</a>
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="file icon"></i>
+        <div class="content">
+            {{ project.name }}
+            <span class="sub header">project</span>
+        </div>
+    </h1>
+
+    <h3>Actitvies</h3>
+    {% if not activities %}
+    <div class="ui message">
+        <p>There is not activities registered!</p>
+    </div>
+    {% else %}
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Initial Date</th>
+                <th>Final Date</th>
+                <th>Is finished?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for activity in activities %}
+            <tr>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.initial_date }}</td>
+                <td>{{ activity.final_date }}</td>
+                <td>{{ activity.is_finished }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+{% if form %}
+<h3 class="ui header">
+    <div class="content">
+        Add activity
+        <span class="sub header">Create a new activity to project {{ project.name }}</span>
+    </div>
+</h3>
+
+<form method="POST" action="/api/projects/{{ project.id }}/activities" class="ui form">{% csrf_token %}
+    {{ form.as_p }}
+    <p>
+        <input type="submit" value="Add" class="ui right floated green submit button">
+    </p>
+</form>
+{% endif %}
+{% endblock %}

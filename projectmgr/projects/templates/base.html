@@ -1,0 +1,25 @@
+<!DOCTYPE html>{% load static %}
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Project Manager - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.min.css' %}">
+        <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous">
+        </script>
+        <script src="{% static 'semantic/semantic.min.js' %}"></script>
+    </head>
+    <body>
+        <div class="ui centered grid">
+            <div class="sixteen wide center aligned black column">
+                Project Manager
+            </div>
+            
+            <div class="eight wide column">
+            {% block body %}{% endblock %}
+            </div>
+        </div>       
+    </body>
+</html>

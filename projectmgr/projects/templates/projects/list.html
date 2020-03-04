@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}List of Projects {% endblock %}
+
+{% block body %}
+<div class="ui blue segment">
+    <h1 class="ui header">
+        <i class="folder icon"></i>
+        <div class="content">
+            List of projects
+        </div>
+    </h1>
+
+    {% if not projects %}
+    <div class="ui warning">
+        There is not projects registered!
+    </div>
+    {% else %}
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Initial Date</th>
+                <th>Final Date</th>
+                <th>Conclusion (%)</th>
+                <th>Late</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>
+                <a href="/api/projects/{{ project.id }}">{{ project.name }}</a>
+            </td>
+            <td>{{ project.initial_date }}</td>
+            <td>{{ project.final_date }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+   
+{% if form %}
+<h3 class="ui header">
+    <div class="content">
+        Add project
+        <span class="sub header">Create a new project</span>
+    </div>
+</h3>
+
+<form method="POST" action="/api/projects" class="ui form">{% csrf_token %}
+    {{ form.as_p }}
+    <p>
+        <input type="submit" value="Add" class="ui right floated green submit button">
+    </p>
+</form>
+{% endif %}
+
+{% endblock %}
